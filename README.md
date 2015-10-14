@@ -6,3 +6,5 @@ ZMConfuse 是一个命令行脚本。用于对使用Objective-C为开发语言�
 Email:zm53373581@163.com
 QQGroup:175070221
 
+混淆效果图：
+![image](https://github.com/kongcup/ZMConfuse/raw/master/confuse.png)
