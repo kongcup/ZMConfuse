@@ -3,10 +3,6 @@ ZMConfuse 是一个命令行脚本。用于对使用Objective-C为开发语言�
 混淆实际是对上述内容的关键字提取之后进行md5加密，使得工程的可读性降低，已达到增加应用安全性的目的。
 
 欢迎联系交流
-echo "#########################################"
-echo  "File Name:zmconfuse.sh"
-echo  "Copyright (c) 2015 ZMConfuse"
-echo  "Email:zm53373581@163.com"
-echo  "QQGroup:175070221"
-echo  "Create:2015.10.14"
-echo "#######################################"
+Email:zm53373581@163.com
+QQGroup:175070221
+
