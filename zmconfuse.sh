@@ -8,12 +8,12 @@ echo  "Create:2015.10.14"
 echo "#######################################"
 
 #要替换的源代码所在的根目录
-ROOTFOLDER="roorfolder"
+ROOTFOLDER="shakefun"
 #自定义的临时保留关键字，添加到该文件中，一行一个
 RESCUSTOM="resCustom.txt"
 
 #要排除的文件夹
-EXCLUDE_DIR="--exclude-dir=*.framework --exclude-dir=include --exclude-dir=libraries --exclude-dir=Libs --exclude-dir=lib"
+EXCLUDE_DIR="--exclude-dir=SVProgressHUD --exclude-dir=AFNetworking --exclude-dir=MagicalRecord"
 
 #保留关键字文件不可删除
 RESERVEDKEYWORDS="./reskeys.txt"
