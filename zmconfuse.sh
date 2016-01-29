@@ -105,7 +105,7 @@ do
 var1=$(echo "$line"|awk '{print "z"$1"m"}')
 var2=$(echo "$line"|awk '{print $2}')
 rm -f rep.tmp
-if grep -r -n -I -w "[_]\{0,1\}$var2"  $ROOTFOLDER $EXCLUDE_DIR   --include="*.[mhc]" --include="*.mm" --include="*.storyboard" --include="*.xib" --include="*.nib" --include="contents" --include="*.pbxproj" >rep.tmp
+if grep -r -n -I -w "[_]\{0,1\}$var2"  $ROOTFOLDER $EXCLUDE_DIR   --include="*.[mhc]" --include="*.mm" --include="*.pch" --include="*.storyboard" --include="*.xib" --include="*.nib" --include="contents" --include="*.pbxproj" >rep.tmp
 then
 cat rep.tmp |
 while read -r l
@@ -119,11 +119,13 @@ sed -i '' '
 '"$v2"'s/)'"$var2"':/)'"$var1"':/g
 '"$v2"'s/('"$var2"':/('"$var1"':/g
 '"$v2"'s/ '"$var2"':/ '"$var1"':/g
+'"$v2"'s/]'"$var2"':/]'"$var1"':/g
 '"$v2"'s/\"'"$var2"':/\"'"$var1"':/g
 '"$v2"'s/)'"$var2"']/)'"$var1"']/g
 '"$v2"'s/('"$var2"']/('"$var1"']/g
 '"$v2"'s/ '"$var2"']/ '"$var1"']/g
 '"$v2"'s/_'"$var2"']/_'"$var1"']/g
+'"$v2"'s/]'"$var2"']/]'"$var1"']/g
 '"$v2"'s/:'"$var2"']/:'"$var1"']/g
 '"$v2"'s/\.'"$var2"']/\.'"$var1"']/g
 '"$v2"'s/)'"$var2"' /)'"$var1"' /g
@@ -141,6 +143,7 @@ sed -i '' '
 '"$v2"'s/ '"$var2"';/ '"$var1"';/g
 '"$v2"'s/,'"$var2"';/,'"$var1"';/g
 '"$v2"'s/_'"$var2"';/_'"$var1"';/g
+'"$v2"'s/_'"$var2"'\[/_'"$var1"'\[/g
 '"$v2"'s/\.'"$var2"';/\.'"$var1"';/g
 '"$v2"'s/\*'"$var2"';/\*'"$var1"';/g
 '"$v2"'s/\='"$var2"';/\='"$var1"';/g
