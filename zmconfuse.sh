@@ -110,134 +110,24 @@ then
 cat rep.tmp |
 while read -r l
 do
+#获取文件路径
 v1=$(echo "$l"|cut -d: -f 1 )
+#获取行号
 v2=$(echo "$l"|cut -d: -f 2 )
+#获取指定行数据
+v3=$(sed -n "$v2"p "$v1")
 ##sed自带文件文本替换功能，不符合我们的期望，故放弃使用；有无适合的脚本命令，还希望脚本高手予以指点～
 #sed -i '' ''"$v2"'s/'"$var2"'/'"$var1"'/g' $v1
-#以下是单词匹配替换功能，以下并未枚举所有情况，请需要的自行添加
-sed -i '' '
-'"$v2"'s/)'"$var2"':/)'"$var1"':/g
-'"$v2"'s/('"$var2"':/('"$var1"':/g
-'"$v2"'s/ '"$var2"':/ '"$var1"':/g
-'"$v2"'s/]'"$var2"':/]'"$var1"':/g
-'"$v2"'s/\"'"$var2"':/\"'"$var1"':/g
-'"$v2"'s/)'"$var2"']/)'"$var1"']/g
-'"$v2"'s/('"$var2"']/('"$var1"']/g
-'"$v2"'s/ '"$var2"']/ '"$var1"']/g
-'"$v2"'s/_'"$var2"']/_'"$var1"']/g
-'"$v2"'s/]'"$var2"']/]'"$var1"']/g
-'"$v2"'s/:'"$var2"']/:'"$var1"']/g
-'"$v2"'s/\.'"$var2"']/\.'"$var1"']/g
-'"$v2"'s/)'"$var2"' /)'"$var1"' /g
-'"$v2"'s/('"$var2"' /('"$var1"' /g
-'"$v2"'s/\['"$var2"' /\['"$var1"' /g
-'"$v2"'s/\"'"$var2"' /\"'"$var1"' /g
-'"$v2"'s/ '"$var2"' / '"$var1"' /g
-'"$v2"'s/:'"$var2"' /:'"$var1"' /g
-'"$v2"'s/_'"$var2"' /_'"$var1"' /g
-'"$v2"'s/[[:space:]]'"$var2"' /'"$var1"' /g
-'"$v2"'s/\.'"$var2"' /\.'"$var1"' /g
-'"$v2"'s/\*'"$var2"' /\*'"$var1"' /g
-'"$v2"'s/)'"$var2"';/)'"$var1"';/g
-'"$v2"'s/('"$var2"';/('"$var1"';/g
-'"$v2"'s/ '"$var2"';/ '"$var1"';/g
-'"$v2"'s/,'"$var2"';/,'"$var1"';/g
-'"$v2"'s/_'"$var2"';/_'"$var1"';/g
-'"$v2"'s/_'"$var2"'\[/_'"$var1"'\[/g
-'"$v2"'s/\.'"$var2"';/\.'"$var1"';/g
-'"$v2"'s/\*'"$var2"';/\*'"$var1"';/g
-'"$v2"'s/\='"$var2"';/\='"$var1"';/g
-'"$v2"'s/)'"$var2"'{/)'"$var1"'{/g
-'"$v2"'s/('"$var2"'{/('"$var1"'{/g
-'"$v2"'s/ '"$var2"'{/ '"$var1"'{/g
-'"$v2"'s/\.'"$var2"'\}/\.'"$var1"'\}/g
-'"$v2"'s/)'"$var2"')/)'"$var1"')/g
-'"$v2"'s/('"$var2"')/('"$var1"')/g
-'"$v2"'s/ '"$var2"')/ '"$var1"')/g
-'"$v2"'s/_'"$var2"')/_'"$var1"')/g
-'"$v2"'s/,'"$var2"')/,'"$var1"')/g
-'"$v2"'s/\*'"$var2"')/\*'"$var1"')/g
-'"$v2"'s/\.'"$var2"')/\.'"$var1"')/g
-'"$v2"'s/\!'"$var2"')/\!'"$var1"')/g
-'"$v2"'s/\&'"$var2"')/\&'"$var1"')/g
-'"$v2"'s/\.'"$var2"'(/\.'"$var1"'(/g
-'"$v2"'s/_'"$var2"'(/_'"$var1"'(/g
-'"$v2"'s/ '"$var2"'(/ '"$var1"'(/g
-'"$v2"'s/[[:space:]]'"$var2"'(/'"$var1"'(/g
-'"$v2"'s/('"$var2"'(/('"$var1"'(/g
-'"$v2"'s/\*'"$var2"'(/\*'"$var1"'(/g
-'"$v2"'s/ '"$var2"'\[/ '"$var1"'\[/g
-'"$v2"'s/\.'"$var2"'\[/\.'"$var1"'\[/g
-'"$v2"'s/)'"$var2"'$/)'"$var1"'/g
-'"$v2"'s/('"$var2"'$/('"$var1"'/g
-'"$v2"'s/('"$var2"'$/('"$var1"'/g
-'"$v2"'s/ '"$var2"'$/ '"$var1"'/g
-'"$v2"'s/_'"$var2"'$/_'"$var1"'/g
-'"$v2"'s/:'"$var2"'$/:'"$var1"'/g
-'"$v2"'s/\.'"$var2"'$/\.'"$var1"'/g
-'"$v2"'s/\&'"$var2"'$/\&'"$var1"'/g
-'"$v2"'s/ '"$var2"'\./ '"$var1"'\./g
-'"$v2"'s/[[:space:]]'"$var2"'\./'"$var1"'\./g
-'"$v2"'s/\.'"$var2"'\./\.'"$var1"'\./g
-'"$v2"'s/\['"$var2"'\./\['"$var1"'\./g
-'"$v2"'s/\!'"$var2"'\./\!'"$var1"'\./g
-'"$v2"'s/_'"$var2"'\./_'"$var1"'\./g
-'"$v2"'s/+'"$var2"'\./+'"$var1"'\./g
-'"$v2"'s/-'"$var2"'\./-'"$var1"'\./g
-'"$v2"'s/\*'"$var2"'\./\*'"$var1"'\./g
-'"$v2"'s/\/'"$var2"'\./\/'"$var1"'\./g
-'"$v2"'s/\"'"$var2"'\./\"'"$var1"'\./g
-'"$v2"'s/\='"$var2"'\./\='"$var1"'\./g
-'"$v2"'s/('"$var2"'\./('"$var1"'\./g
-'"$v2"'s/:'"$var2"'\./:'"$var1"'\./g
-'"$v2"'s/,'"$var2"'\./,'"$var1"'\./g
-'"$v2"'s/\.'"$var2"',/\.'"$var1"',/g
-'"$v2"'s/_'"$var2"',/_'"$var1"',/g
-'"$v2"'s/ '"$var2"',/ '"$var1"',/g
-'"$v2"'s/:'"$var2"',/:'"$var1"',/g
-'"$v2"'s/,'"$var2"',/,'"$var1"',/g
-'"$v2"'s/('"$var2"',/('"$var1"',/g
-'"$v2"'s/)'"$var2"',/)'"$var1"',/g
-'"$v2"'s/\['"$var2"',/\['"$var1"',/g
-'"$v2"'s/\<'"$var2"',/\<'"$var1"',/g
-'"$v2"'s/\*'"$var2"',/\*'"$var1"',/g
-'"$v2"'s/\.'"$var2"'+/\.'"$var1"'+/g
-'"$v2"'s/\='"$var2"'+/\='"$var1"'+/g
-'"$v2"'s/_'"$var2"'+/_'"$var1"'+/g
-'"$v2"'s/[[:space:]]'"$var2"'+/'"$var1"'+/g
-'"$v2"'s/\.'"$var2"'-/\.'"$var1"'-/g
-'"$v2"'s/\='"$var2"'-/\='"$var1"'-/g
-'"$v2"'s/_'"$var2"'-/_'"$var1"'-/g
-'"$v2"'s/[[:space:]]'"$var2"'-/'"$var1"'-/g
-'"$v2"'s/\.'"$var2"'\*/\.'"$var1"'\*/g
-'"$v2"'s/_'"$var2"'\*/_'"$var1"'\*/g
-'"$v2"'s/ '"$var2"'\*/ '"$var1"'\*/g
-'"$v2"'s/('"$var2"'\*/('"$var1"'\*/g
-'"$v2"'s/[[:space:]]'"$var2"'\*/'"$var1"'\*/g
-'"$v2"'s/\.'"$var2"'\//\.'"$var1"'\//g
-'"$v2"'s/\*'"$var2"'\//\*'"$var1"'\//g
-'"$v2"'s/\.'"$var2"'\=/\.'"$var1"'\=/g
-'"$v2"'s/\"'"$var2"'\=/\"'"$var1"'\=/g
-'"$v2"'s/ '"$var2"'\=/ '"$var1"'\=/g
-'"$v2"'s/_'"$var2"'\=/_'"$var1"'\=/g
-'"$v2"'s/('"$var2"'\=/('"$var1"'\=/g
-'"$v2"'s/[[:space:]]'"$var2"'\=/'"$var1"'\=/g
-'"$v2"'s/\"'"$var2"'\"/\"'"$var1"'\"/g
-'"$v2"'s/('"$var2"'\>/('"$var1"'\>/g
-'"$v2"'s/ '"$var2"'\>/ '"$var1"'\>/g
-'"$v2"'s/,'"$var2"'\>/,'"$var1"'\>/g
-'"$v2"'s/\.'"$var2"'\>/\.'"$var1"'\>/g
-'"$v2"'s/\<'"$var2"'\>/\<'"$var1"'\>/g
-'"$v2"'s/('"$var2"'\</('"$var1"'\</g
-'"$v2"'s/ '"$var2"'\</ '"$var1"'\</g
-'"$v2"'s/\.'"$var2"'\</\.'"$var1"'\</g
-'"$v2"'s/_'"$var2"'\!/_'"$var1"'\!/g
-'"$v2"'s/\.'"$var2"'\!/\.'"$var1"'\!/g
-' $v1
-echo "step2:"$l
+#特殊字符转义替换，echo中 输出的变量 一定要加双引号！！！
+v4=$(echo "$v3" | awk '{gsub(/"/, "\\\"", $0);gsub(/</, "\\\<", $0);gsub(/>/, "\\\>", $0);gsub(/\*/, "\\\*", $0);gsub(/\//, "\\\/", $0);gsub(/\[/, "\\\[", $0);gsub(/\]/, "\\\]", $0);gsub(/\{/, "\\\{", $0);gsub(/\}/, "\\\}", $0); print $0;}')
+#单词替换
+var3=$(./zmreplacewords.run "$v4" "$var2" "$var1")
+#整行替换
+sed -i '' "$v2"'s/.*/'"$var3"'/g' "$v1"
+echo "step2:$l"
 done
 else
-echo "step2:do not find:"$var2
+echo "step2:do not find:$var2"
 fi
 done
 rm -f tmp.txt
@@ -255,6 +145,30 @@ md5 -r -s $line  | sed s/\"//g >> repProperty.txt
 fi
 done
 rm -f filter_property.txt
+
+#开始混淆，替换属性前带下划线的地方
+cat repProperty.txt |
+while read line
+do
+ar=(`echo "$line"|cut -f 1-2 -d " "`)
+lastFind=`echo _${ar[1]}`
+lastRep=`echo _z${ar[0]}m`
+rm -f rep.tmp
+if grep -r -n -I -w "$lastFind"  $ROOTFOLDER $EXCLUDE_DIR   --include="*.[mhc]" --include="*.mm" --include="*.storyboard" --include="*.xib" >rep.tmp
+then
+cat rep.tmp |
+while read l
+do
+v1=$(echo "$l"|cut -d: -f 1 )
+v2=$(echo "$l"|cut -d: -f 2 )
+sed -i '' ''"$v2"'s/'"$lastFind"'/'"$lastRep"'/g' $v1
+echo "step3:"$l
+done
+else
+echo "step3:do not find:"$lastFind
+fi
+done
+rm -f rep.tmp
 
 #开始混淆，替换属性设置函数
 cat repProperty.txt |
