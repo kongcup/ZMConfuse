@@ -10,7 +10,7 @@ echo "用户修改区－开始"
 #要替换的源代码所在的根目录,该脚本文件与根目录处于同级文件夹
 ROOTFOLDER="shakefun"
 #要排除的文件夹,例如demo中用到的第三方库AFNetworking等
-EXCLUDE_DIR="--exclude-dir=SVProgressHUD --exclude-dir=AFNetworking --exclude-dir=MagicalRecord"
+EXCLUDE_DIR="--exclude-dir=SVProgressHUD --exclude-dir=AFNetworking --exclude-dir=MagicalRecord --exclude-dir=Images.xcassets"
 echo "用户修改区－结束"
 
 #自定义的保留关键字,相当与白名单，添加到该文件中，一行一个，加入该文件的关键字将不被混淆;如工程中自定义的文件夹名称
@@ -35,7 +35,8 @@ rm -f temp.res
 rm -f f.list
 find $ROOTFOLDER -type f | sed "/\/\./d" >f.list
 #根据要排除的文件目录，将文件列表分离
-Exclude=$(echo $EXCLUDE_DIR | sed "s/--exclude-dir\=//g" |sed "s/ $//g" | sed "s/[*.]//g" | sed "s/ /\\\|/g")
+#Exclude=$(echo $EXCLUDE_DIR | sed "s/--exclude-dir\=//g" |sed "s/ $//g" | sed "s/[*.]//g" | sed "s/ /\\\|/g")
+Exclude=$(echo $EXCLUDE_DIR | sed "s/--exclude-dir\=//g" |sed "s/ $//g" | sed "s/ /\\\|/g")
 #保留文件列表
 rm -f f_res.list
 cat f.list | grep "$Exclude" >f_res.list
@@ -119,7 +120,7 @@ v3=$(sed -n "$v2"p "$v1")
 ##sed自带文件文本替换功能，不符合我们的期望，故放弃使用；有无适合的脚本命令，还希望脚本高手予以指点～
 #sed -i '' ''"$v2"'s/'"$var2"'/'"$var1"'/g' $v1
 #特殊字符转义替换，echo中 输出的变量 一定要加双引号！！！
-v4=$(echo "$v3" | awk '{gsub(/"/, "\\\"", $0);gsub(/</, "\\\<", $0);gsub(/>/, "\\\>", $0);gsub(/\*/, "\\\*", $0);gsub(/\//, "\\\/", $0);gsub(/\[/, "\\\[", $0);gsub(/\]/, "\\\]", $0);gsub(/\{/, "\\\{", $0);gsub(/\}/, "\\\}", $0); print $0;}')
+v4=$(echo "$v3" | awk '{gsub(/"/, "\\\"", $0);gsub(/</, "\\\<", $0);gsub(/>/, "\\\>", $0);gsub(/\*/, "\\\*", $0);gsub(/\//, "\\\/", $0);gsub(/\[/, "\\\[", $0);gsub(/\]/, "\\\]", $0);gsub(/\{/, "\\\{", $0);gsub(/\}/, "\\\}", $0);gsub(/\&/, "\\\\\&", $0); print $0;}')
 #单词替换
 var3=$(./zmreplacewords.run "$v4" "$var2" "$var1")
 #整行替换
